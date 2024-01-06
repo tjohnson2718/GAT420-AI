@@ -167,6 +167,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CA.cpp" />
     <ClCompile Include="Cells.cpp" />
     <ClCompile Include="Environment.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -175,6 +176,7 @@
     <ClCompile Include="Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CA.h" />
     <ClInclude Include="Cells.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="Environment.h" />
