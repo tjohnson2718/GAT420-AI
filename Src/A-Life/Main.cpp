@@ -2,6 +2,7 @@
 #include "CA.h"
 #include "Renderer.h"
 #include "Texture.h"
+#include "GameOfLife.h"
 
 #include <glm/glm.hpp>
 #include <iostream>
@@ -24,6 +25,10 @@ int main(int, char**)
 	std::unique_ptr<Environment> env = std::make_unique<CA>(env_size.x, env_size.y, texture);
 	env->Initialize();
 
+	// create GameOfLIfe
+	std::unique_ptr<GameOfLife> life = std::make_unique<GameOfLife>(env_size.x, env_size.y, texture);
+	life->Initialize();
+
 	bool quit = false;
 	while (!quit)
 	{
@@ -39,6 +44,7 @@ int main(int, char**)
 		case SDL_KEYDOWN:
 			if (event.key.keysym.sym == SDLK_ESCAPE) quit = true;
 			env->KeyDown(event.key.keysym.sym);
+			life->KeyDown(event.key.keysym.sym);
 			break;
 
 		case SDL_MOUSEMOTION:
@@ -55,7 +61,8 @@ int main(int, char**)
 		}
 
 		// update environment
-		env->Step();
+		//env->Step();
+		life->Step();
 		texture->Copy(env->GetColorBuffer());
 
 		renderer.RenderCopy(texture);

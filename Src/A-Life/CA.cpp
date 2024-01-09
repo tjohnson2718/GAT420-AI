@@ -15,7 +15,7 @@ void CA::Step()
 
 	// rule 30
 	//uint8_t rule[] = { 0, 0, 0, 1, 0, 1, 1, 0 };
-	static uint8_t rule = 149;
+	static uint8_t rule = 22;
 	//rule++;
 
 	for (int y = 0; y < size.y - 1; y++)

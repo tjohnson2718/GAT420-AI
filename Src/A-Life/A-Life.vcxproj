@@ -180,6 +180,7 @@
     <ClInclude Include="Cells.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="Environment.h" />
+    <ClInclude Include="GameOfLife.h" />
     <ClInclude Include="MathUtils.h" />
     <ClInclude Include="Random.h" />
     <ClInclude Include="Renderer.h" />
