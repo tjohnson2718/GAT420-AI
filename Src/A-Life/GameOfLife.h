@@ -27,6 +27,7 @@ public:
 
         std::fill(writeBuffer.begin(), writeBuffer.end(), 0);
 
+
         for (int y = 0; y < size.y; y++)
         {
             for (int x = 0; x < size.x; x++)
@@ -37,7 +38,14 @@ public:
                 //XXX
                 //X0X
                 //XXX
-                weight += Read<uint8_t>(readBuffer, x, y);
+                //weight += Read<uint8_t>(readBuffer, x, y);
+
+                // read surrounding cells (8 cells)
+                weight += Read<uint8_t>(readBuffer, x - 1, y - 1);
+                weight += Read<uint8_t>(readBuffer, x + 0, y - 1);
+                weight += Read<uint8_t>(readBuffer, x + 1, y - 1);
+
+                // read the other cells around the center cell
 
                 // game of life rules
                 // if cell is alive, update
@@ -49,7 +57,7 @@ public:
                     }
                     else //rule 2
                     {
-                        Write<uint8_t>(writeBuffer, x, y, 0);
+                        Write<uint8_t>(writeBuffer, x, y, 1);
                     }
                 }
                 else // rule 4
