@@ -2,15 +2,15 @@
 #include "Environment.h"
 #include "Texture.h"
 #include "Random.h"
-#include <random>
 
-class GameOfLife : Environment
+class GameOfLife : public Environment
 {
 public:
     GameOfLife(int width, int height, std::shared_ptr<class Texture> texture) :
-        Environment(width, height, texture),
-        bufferA(width* height, 0),
-        bufferB(width* height, 0) {}
+        Environment(width, height, texture)
+        //bufferA(width* height, 0),
+        //bufferB(width* height, 0) 
+        {}
 
     bool Initialize() override
     {
@@ -22,11 +22,10 @@ public:
     void Step() override
     {
         frame++;
-        std::vector<uint8_t>& readBuffer = (frame % 2 == 0) ? bufferA : bufferB;
-        std::vector<uint8_t>& writeBuffer = (frame % 2 == 0) ? bufferB : bufferA;
+        std::vector<uint8_t>& readBuffer = (frame % 2) ? bufferA : bufferB;
+        std::vector<uint8_t>& writeBuffer = (frame % 2) ? bufferB : bufferA;
 
         std::fill(writeBuffer.begin(), writeBuffer.end(), 0);
-
 
         for (int y = 0; y < size.y; y++)
         {
@@ -38,14 +37,17 @@ public:
                 //XXX
                 //X0X
                 //XXX
-                //weight += Read<uint8_t>(readBuffer, x, y);
-
                 // read surrounding cells (8 cells)
                 weight += Read<uint8_t>(readBuffer, x - 1, y - 1);
                 weight += Read<uint8_t>(readBuffer, x + 0, y - 1);
                 weight += Read<uint8_t>(readBuffer, x + 1, y - 1);
 
-                // read the other cells around the center cell
+                weight += Read<uint8_t>(readBuffer, x - 1, y);
+                weight += Read<uint8_t>(readBuffer, x + 1, y);
+
+                weight += Read<uint8_t>(readBuffer, x - 1, y + 1);
+                weight += Read<uint8_t>(readBuffer, x, y + 1);
+                weight += Read<uint8_t>(readBuffer, x + 1, y + 1);
 
                 // game of life rules
                 // if cell is alive, update
